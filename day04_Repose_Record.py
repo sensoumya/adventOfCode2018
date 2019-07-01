@@ -48,3 +48,24 @@ most_sleeper_id = most_sleeper(data)
 most_slept_min = min_cal(most_sleeper_id)
 print(most_slept_min * int(most_sleeper_id))
 # print(data)
+
+
+
+def calc(data):
+    min_counter = Counter()
+    min_info = defaultdict(lambda: Counter())
+    for row in data:
+        if '#' in row[1]:
+            id = row[1].split(' ')[1].split('#')[1]
+        if 'falls' in row[1]:
+            start = row[0].time().minute
+        if 'wakes' in row[1]:
+            end = row[0].time().minute
+            for i in range(start, end):
+                min_counter[i] += 1
+                min_info[i][id]+=1
+    min = int(min_counter.most_common(1)[0][0])
+    id = int(min_info[min].most_common(1)[0][0])
+    return min*id
+
+print(calc(data))
