@@ -3,7 +3,7 @@ from collections import Counter
 with open('Data//day06.txt', 'r') as f:
     new_data = list(map(lambda x: (int(x.split(',')[0]), int(x.split(',')[1])), f.read().replace(' ', '').split('\n')))
 
-
+#par1
 def manhattan_dist(coord, data=new_data):
     distances = Counter()
     for point in new_data:
@@ -35,3 +35,18 @@ for i in finite_crd:
     largest_sum.append(sum(1 for k in coordinates.values() if k == i))
 
 print(max(largest_sum))
+
+# part 2
+def tot_dist_calc(coord, data=new_data):
+    dist = 0
+    for point in new_data:
+        dist += abs(point[0] - coord[0]) + abs(point[1] - coord[1])
+    return dist
+
+count = 0
+for i in range(1, grid_size[0] + 1):
+    for j in range(1, grid_size[1] + 1):
+        tot_dist = tot_dist_calc((i, j))
+        if tot_dist<10000:
+            count += 1
+print(count)
